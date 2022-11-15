@@ -1,0 +1,115 @@
+﻿@model GroupC.Uni.ConsumingApi.ViewModels.SubmissionViewModel
+<style>
+
+    col-lg-6 h2 {
+        font-size: 48px;
+        color: #40424a;
+        font-family: 'Josefin Sans', sans-serif;
+    }
+
+    .hero-info dl dt span {
+        color: #40424a;
+        display: inline-block;
+        min-width: 220px;
+    }
+
+    /*.hero-info dl dd {
+        font-size: 18px;
+        color: #808181;
+    }*/
+</style>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-10 offset-xl-1">
+                <div class="row">
+                    <div class="col-sm-3"> </div>
+                    <div class="col-sm-6 box-body with-border" style="background-color:white; border-top: 3px solid #d2d6de;">
+                        <div class="col-sm-7">
+                            <div style="border-bottom: 1px solid #d2d6de;">
+                                <h3>Submission Details</h3>
+
+                            </div>
+                            <div class="hero-info">
+                                <div></div>
+                                <dl>
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.date)
+
+                                    </dt>
+                                    <dd>
+                                        @Html.DisplayFor(model => model.date)
+                                    </dd>
+
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.Student)
+                                    </dt>
+                                    <dd>
+                                        @Html.DisplayFor(model => model.Student.ApplicationUser.userName)
+                                    </dd>
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.Exam)
+                                    </dt>
+                                    <dd>
+                                        @Html.DisplayFor(model => model.Exam.Course.Name)
+                                    </dd>
+                                    <dt>
+                                        Test Center
+                                    </dt>
+                                    <dd>
+                                        @Html.DisplayFor(model => model.Exam.TestCenter.Name)
+                                    </dd>
+                                    <dt>Questions </dt>
+                                    <dd>
+                                        <table class="table" id="#QuestionsTable">
+                                            <thead>
+                                                <tr>
+                                                    <th>Text</th>
+                                                    <th>Mark</th>
+                                                    <th>Topic Name</th>
+                                                    <th>Choices</th>
+                                                    <th>Answer</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var item in Model.SubmissionChoices)
+                                                {
+
+                                                <tr>
+                                                    <td> @item.Choice.Question.Text</td>
+                                                    <td> @item.Choice.Question.Mark</td>
+                                                    <td> @item.Choice.Question.Topic.Name</td>
+                                                    <td>
+                                                        <ol>
+                                                            @foreach (var ch in item.Choice.Question.Choices)
+                                                            {
+                                                                @*<li style="color:limegreen">@ch.Text</li>*@
+                                                                @if (ch.Type)
+                                                                {
+                                                                    <li style="color:limegreen">@ch.Text</li>}
+                                                                @if (!ch.Type)
+                                                                {
+                                                                    <li style="color:red">@ch.Text</li>}
+                                                            }
+                                                        </ol>
+                                                    </td>
+                                                    <td> @item.Choice.Text</td>
+                                                </tr>
+
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>

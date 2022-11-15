@@ -1,0 +1,65 @@
+﻿@model IEnumerable<GroupC.Uni.ConsumingApi.ViewModels.SubmissionViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<section class="content">
+<div class="box" style="padding: 20px">
+    <div class="box-header">
+        <h2 class="box-title">Submissions</h2>
+    </div>
+
+    <table class="table" id="ExamTable">
+        <thead>
+
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.date)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Student)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Exam)
+                </th>
+                <th>
+                    Exam TestCenter
+                </th>
+                @*<th>
+                    @Html.DisplayNameFor(model => model.SubmissionChoices)
+                </th>*@
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Student.ApplicationUser.userName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Exam.Course.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Exam.TestCenter.Name)
+                    </td>
+                    @*<td>
+                        @Html.DisplayFor(modelItem => item.SubmissionChoices)
+                    </td>*@
+                    <td>
+                        <a class="btn btn-sm btn-info" asp-action="Edit" asp-route-id="@item.Id">Update</a>
+                        <a class="btn btn-sm btn-primary" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                        <a class="btn btn-sm btn-danger delete" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                          
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</section>

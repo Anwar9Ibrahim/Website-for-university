@@ -1,0 +1,70 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.852
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GroupC.Uni.Web", "GroupC.Uni.Web\GroupC.Uni.Web.csproj", "{51128377-D8E9-4B82-828E-156D7B952602}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GroupC.Uni.Infrastructure", "GroupC.Infrastructure\GroupC.Uni.Infrastructure.csproj", "{6452FE52-9085-4654-A176-28E872814185}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GroupC.Uni.Core", "GroupC.Uni.Core\GroupC.Uni.Core.csproj", "{6F83E933-6C73-4A5F-8AEB-95A54CCBC28B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GroupC.Uni.Student", "GroupC.Uni.Student\GroupC.Uni.Student.csproj", "{A3EE7CD1-404B-4C22-B278-DEBE3C1D32E1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GroupC.Uni.ConsumingApi", "GroupC.Uni.CallingApi\GroupC.Uni.ConsumingApi.csproj", "{D401A53B-44A2-4082-929F-71E3C8A9CDA6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{51128377-D8E9-4B82-828E-156D7B952602}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51128377-D8E9-4B82-828E-156D7B952602}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51128377-D8E9-4B82-828E-156D7B952602}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51128377-D8E9-4B82-828E-156D7B952602}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6452FE52-9085-4654-A176-28E872814185}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6452FE52-9085-4654-A176-28E872814185}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6452FE52-9085-4654-A176-28E872814185}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6452FE52-9085-4654-A176-28E872814185}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F83E933-6C73-4A5F-8AEB-95A54CCBC28B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F83E933-6C73-4A5F-8AEB-95A54CCBC28B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F83E933-6C73-4A5F-8AEB-95A54CCBC28B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F83E933-6C73-4A5F-8AEB-95A54CCBC28B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3EE7CD1-404B-4C22-B278-DEBE3C1D32E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3EE7CD1-404B-4C22-B278-DEBE3C1D32E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3EE7CD1-404B-4C22-B278-DEBE3C1D32E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3EE7CD1-404B-4C22-B278-DEBE3C1D32E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D401A53B-44A2-4082-929F-71E3C8A9CDA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D401A53B-44A2-4082-929F-71E3C8A9CDA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D401A53B-44A2-4082-929F-71E3C8A9CDA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D401A53B-44A2-4082-929F-71E3C8A9CDA6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {577151C6-2DA5-4CD8-A44A-0022D28DEFEB}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 6
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://dev.azure.com/anwarebrahaim0083
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = GroupC.Infrastructure\\GroupC.Uni.Infrastructure.csproj
+		SccProjectName1 = GroupC.Infrastructure
+		SccLocalPath1 = GroupC.Infrastructure
+		SccProjectUniqueName2 = GroupC.Uni.Core\\GroupC.Uni.Core.csproj
+		SccProjectName2 = GroupC.Uni.Core
+		SccLocalPath2 = GroupC.Uni.Core
+		SccProjectUniqueName3 = GroupC.Uni.Web\\GroupC.Uni.Web.csproj
+		SccProjectName3 = GroupC.Uni.Web
+		SccLocalPath3 = GroupC.Uni.Web
+		SccProjectUniqueName4 = GroupC.Uni.Student\\GroupC.Uni.Student.csproj
+		SccProjectName4 = GroupC.Uni.Student
+		SccLocalPath4 = GroupC.Uni.Student
+		SccProjectUniqueName5 = GroupC.Uni.CallingApi\\GroupC.Uni.ConsumingApi.csproj
+		SccProjectName5 = GroupC.Uni.CallingApi
+		SccLocalPath5 = GroupC.Uni.CallingApi
+	EndGlobalSection
+EndGlobal

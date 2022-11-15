@@ -1,0 +1,302 @@
+﻿@using System.Globalization
+@using Microsoft.AspNetCore.Http.Features
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
+@{
+    bool isRightToLeft= false;
+    var ReqCulture = Context.Features.Get<IRequestCultureFeature>();
+    isRightToLeft = ReqCulture.RequestCulture.Culture.TextInfo.IsRightToLeft;
+}
+@inject SignInManager<ApplicationUser> signInManager;
+@inject IViewLocalizer Localizer
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>@Localizer["GroupC | Admin Page"]</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.7 -->
+    <link rel="stylesheet" href="~/bowercomponents/bootstrap/dist/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="~/bowercomponents/font-awesome/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="~/bowercomponents/Ionicons/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="~/dist/css/AdminLTE.min.css">
+    <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+    <script src="~/js/delete.js" asp-append-version="true"></script>
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="~/dist/css/skins/_all-skins.min.css">
+    <link rel="stylesheet" href="~/dist/css/rtl.css">
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    @if (isRightToLeft)
+    {
+        <link href="~/dist/css/AdminLTErtl.css" rel="stylesheet" />
+    }
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Google Font -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+</head>
+<body class="hold-transition skin-black-light sidebar-mini">
+    <!-- Site wrapper -->
+    <div class="wrapper @if (isRightToLeft){ <text> rtl </text>}">
+        <header class="main-header">
+            <a href="../../Home/Index" class="logo">
+                <!-- mini logo for sidebar mini 50x50 pixels -->
+                <span class="logo-mini"><b>C</b>Uni</span>
+                <!-- logo for regular state and mobile devices -->
+                <span class="logo-lg"><b>Admin</b>Page</span>
+
+            </a>
+
+            <!-- Header Navbar -->
+            <nav class="navbar navbar-static-top" role="navigation">
+                <!-- Sidebar toggle button-->
+                <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+                <!-- Navbar Right Menu -->
+                <div class="navbar-custom-menu">
+                    <ul class="nav navbar-nav ">
+                        @Html.Partial("_UserNavBarPartial")
+                    </ul>
+                </div>
+            </nav>
+        </header>
+
+
+        <aside class="main-sidebar">
+            <!-- sidebar: style can be found in sidebar.less -->
+            <section class="sidebar" style="height: auto;">
+                <!-- sidebar menu: : style can be found in sidebar.less -->
+                <ul class="sidebar-menu tree" data-widget="tree">
+                    <li class="header">@Localizer["MAIN NAVIGATION"]</li>
+                    <li class="treeview CreateStudentLi ViewUserLi CreateTestCenterLi ListTestCentersLi CreateAdminLi">
+                        <a href="#">
+                            <i class="glyphicon glyphicon-user"></i>
+                            <span>@Localizer["Users Management"]</span>
+                            <span class="@if (isRightToLeft) { <text> pull-left-container </text>} else {<text> pull-right-container </text> }">
+                                <i class="fa  @if (isRightToLeft) { <text> fa-angle-right pull-left </text>} else {<text> fa-angle-left pull-right </text> } "></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu CreateStudentLi ViewUserLi CreateTestCenterLi ListTestCentersLi">
+                            <li class="CreateStudentLi"><a href="../../Students/Create"><i class="fa fa-circle-o"></i>@Localizer["Add Student"] </a></li>
+                            <li class="ViewUserLi"><a href="../../Students/Index"><i class="fa fa-circle-o"></i>@Localizer["View Students"] </a></li>
+                            <li class="CreateTestCenterLi"><a href="../../TestCenters/Create"><i class="fa fa-circle-o"></i>@Localizer["Add Test Center"] </a></li>
+                            <li class="ListTestCentersLi"><a href="../../TestCenters/Index"><i class="fa fa-circle-o"></i> @Localizer["View Test Centers"] </a></li>
+                            <li class="CreateAdminLi"><a href="../../Admins/Create"><i class="fa fa-circle-o"></i>@Localizer["Add Admins"] </a></li>
+                            <li class="ListAdminLi"><a href="../../Admins/Index"><i class="fa fa-circle-o"></i>@Localizer["List Admins"] </a></li>
+
+
+                        </ul>
+                    </li>
+                    <li class="treeview CreateCourseLi ViewCourseLi">
+                        <a href="#">
+                            <i class="fa fa-book "></i>
+                            <span>@Localizer["Course Management"]</span>
+                            <span class="@if (isRightToLeft) { <text>  pull-left-container  </text>} else {<text> pull-right-container </text> }">
+                                <i class="fa  @if (isRightToLeft) { <text>  fa-angle-right pull-left  </text>} else {<text> fa-angle-left pull-right </text> } "></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu CreateCourseLi ViewCourseLi">
+                            <li class="CreateCourseLi"><a href="../../Courses/Create"><i class="fa fa-circle-o"></i> @Localizer["Add Course"]  </a></li>
+                            <li class="ViewCourseLi"><a href="../../Courses/Index"><i class="fa fa-circle-o"></i>  @Localizer["View Courses"] </a></li>
+                        </ul>
+                    </li>
+                    <li class="treeview CreateQuestionLi ViewQuestionLi">
+                        <a href="#">
+                            <i class="fa fa-question-circle"></i>
+                            <span>@Localizer["Questions Management"]</span>
+                            <span class="@if (isRightToLeft) { <text> pull-left-container </text>} else {<text> pull-right-container </text> }">
+                                <i class="fa  @if (isRightToLeft) { <text> fa-angle-right pull-left </text>} else {<text> fa-angle-left pull-right </text> } "></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu CreateQuestionLi ViewQuestionLi">
+                            <li class="CreateQuestionLi"><a href="../../Questions/Create"><i class="fa fa-circle-o"></i>@Localizer["Add Question"] </a></li>
+                            <li class="ViewQuestionLi"><a href="../../Questions/Index"><i class="fa fa-circle-o"></i>@Localizer["View Questions"] </a></li>
+                        </ul>
+                    </li>
+                    <li class="treeview CreateExamLi ViewExamLi">
+                        <a href="#">
+                            <i class="fa fa-list-alt"></i>
+                            <span>@Localizer["Exams Management"]</span>
+                            <span class="@if (isRightToLeft) { <text> pull-left-container </text>} else {<text> pull-right-container </text> }">
+                                <i class="fa  @if (isRightToLeft) { <text> fa-angle-right pull-left </text>} else {<text> fa-angle-left pull-right </text> } "></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu CreateExamLi ViewExamLi">
+                            <li class="CreateExamLi"><a href="../../Exams/Create"><i class="fa fa-circle-o"></i>@Localizer["Add Exam"] </a></li>
+                            <li class="ViewExamLi"><a href="../../Exams/Index"><i class="fa fa-circle-o"></i>@Localizer["View Exams"] </a></li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </section>
+            <!-- /.sidebar -->
+        </aside>
+
+        <div class="content-wrapper ">
+            <section class="content-header">
+                <ol class="breadcrumb">
+                    <li><a href="#"><i class="fa fa-dashboard"></i>  @Html.ActionLink(@Localizer["Home"].Value, "Index", "Home")</a></li>
+                    @if (ViewContext.RouteData.Values["controller"].ToString() != "Home")
+                    {
+                        @if (ViewContext.RouteData.Values["controller"].ToString() == "Courses")
+                        {
+                            <li class="">@Html.ActionLink(@Localizer["Courses"].Value, "Index", ViewContext.RouteData.Values["controller"].ToString())</li>}
+                        else
+                        {
+                            <li class="">@Html.ActionLink(ViewContext.RouteData.Values["controller"].ToString(), "Index", ViewContext.RouteData.Values["controller"].ToString())</li>
+                        }
+                    }
+                    @if (ViewContext.RouteData.Values["action"].ToString() != "index")
+                    {
+
+                        @if (ViewContext.RouteData.Values["action"].ToString() == "Create")
+                        {
+                            
+                            <li class="active">@Html.ActionLink(@Localizer["Create"].Value, ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString())</li>
+
+                        }
+                        else
+                        {
+                            <li class="active">
+                            
+                                @Html.ActionLink(ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString())
+                            </li>
+                            
+                        }
+
+                    }
+                </ol>
+            </section>
+          
+
+            <div class="content">
+                @if (ViewBag.Message != null)
+                {
+                    <div class="row">
+                        <div class="col-md-3"></div>
+                        <div class="col-md-5">
+                            @if (@ViewBag.Message.Type== MessageType.Success)
+                            {<div class="alert alert-success alert-dismissable">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close" style="text-decoration:none">&times;</a>
+                                @ViewBag.Message.Text
+                            </div>
+                            }
+                            @if (@ViewBag.Message.Type == MessageType.Error)
+                            {
+                            <div class="alert alert-error alert-dismissable">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close" style="text-decoration:none">&times;</a>
+                                @ViewBag.Message.Text
+                            </div>
+                            }
+                        </div>
+                    </div>
+                }
+                @RenderBody()
+            </div>
+        </div>
+        <footer></footer>
+        <footer class="main-footer">
+            @if (isRightToLeft)
+            {<div class="row">
+                    <div class=" text-right pull-left"  style="margin-left:20px;">
+                        @await Html.PartialAsync("_SelectLanguagePartial")
+                    </div>
+                    <div class="pull-right"style="margin-right:20px;">
+                        <p>&copy; @System.DateTime.Now.Year - @Localizer["GroupC Admin page"]</p>
+                    </div>
+
+                </div> }
+            else
+            {
+                <div class="row">
+                    <div class="pull-left" style="margin-left:20px;">
+                        <p>&copy; @System.DateTime.Now.Year - @Localizer["GroupC Admin page"]</p>
+                    </div>
+                    <div class=" text-right pull-right" style="margin-right:20px;">
+                        @await Html.PartialAsync("_SelectLanguagePartial")
+                    </div>
+                </div>
+            }
+
+        </footer>
+    </div>
+    <!-- /.content-wrapper -->
+    <!-- ./wrapper -->
+    <!-- jQuery 3 -->
+    <script src="~/bowercomponents/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap 3.3.7 -->
+    <script src="~/bowercomponents/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- SlimScroll -->
+    <script src="~/bowercomponents/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+    <!-- FastClick -->
+    <script src="~/bowercomponents/fastclick/lib/fastclick.js"></script>
+    <!-- AdminLTE App -->
+    <script src="~/dist/js/adminlte.min.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="~/dist/js/demo.js"></script>
+
+    <script src="~/bowercomponents/datatables.net/js/jquery.dataTables.js"></script>
+    <script src="~/bowercomponents/datatables.net-bs/js/dataTables.bootstrap.js"></script>
+    <link href="~/bowercomponents/datatables.net-bs/css/dataTables.bootstrap.css" rel="stylesheet" />
+    <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+    <script src="~/js/delete.js" asp-append-version="true"></script>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+
+<script>
+        $(document).ready(function () {
+            $('.sidebar-menu').tree();
+            $('.@(ViewBag.CurrentPage)Li').addClass('active');
+            //$('table').DataTable();
+            $('#CourseTable').DataTable(
+                {
+                    "order": [[3, "desc"]]
+                   
+                }
+            );
+            $('#TestCenterTable').DataTable(
+                {
+                    "order": [[3, "desc"]]
+                }
+            );
+            $('#StudentsTable').DataTable(
+                {
+                    "order": [[3, "desc"]]
+                }
+            );
+            $('#UsersTable').DataTable(
+                {
+                    "order": [[3, "desc"]]
+                }
+            );
+     $('#QuestionExamTable').DataTable();
+            //$('#QuestionTable').DataTable(
+            //    {
+            //        "order": [[3, "desc"]]
+            //    }
+         $('#ExamTable').DataTable(
+                {
+                    "order": [[3, "desc"]]
+                }
+            );
+        });
+</script>

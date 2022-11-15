@@ -1,0 +1,80 @@
+﻿<div class="blog">
+    <a href="../../ConsApiExams/Exam">go to exams</a>
+</div>
+@{ /*
+  @model IEnumerable<GroupC.Uni.Core.Entities.Exam>
+
+  <section class="content">
+      <div class="box" style="padding: 20px">
+          <div class="box-header">
+              <h2 class="box-title">Exames</h2>
+          </div>
+
+          <p style="text-align:right">
+              <a asp-action="Create" class="btn btn-sm btn-bitbucket" style="margin-right:10px">Create New Exam</a>
+          </p>
+          <table class="table" id="ExamTable">
+              <thead>
+                  <tr>
+                      @*<th>
+              @Html.DisplayNameFor(model => model.ExamQuestions)
+          </th>*@
+                      <th>
+                          @Html.DisplayNameFor(model => model.DurationInMinutes)
+                      </th>
+                      @*<th>
+              @Html.DisplayNameFor(model => model.IsRandom)
+          </th>*@
+                      <th>
+                          @Html.DisplayNameFor(model => model.QuestionsCount)
+                      </th>
+
+                      <th>
+                          @Html.DisplayNameFor(model => model.Course)
+                      </th>
+                      <th>
+                          @Html.DisplayNameFor(model => model.TestCenter)
+                      </th>
+                      <th>
+                          @Html.DisplayNameFor(model => model.ExamDate)
+                      </th>
+
+                      <th></th>
+                  </tr>
+              </thead>
+              <tbody>
+                  @foreach (var item in Model)
+                  {
+                      <tr>
+                          @*<td>
+                                  @Html.DisplayNameFor(model => model.ExamQuestions)
+                              </td>*@
+                          <td>
+                              @Html.DisplayFor(modelItem => item.DurationInMinutes)
+                          </td>
+                          @*<td>
+                                  @Html.DisplayFor(modelItem => item.IsRandom)
+                              </td>*@
+                          <td>
+                              @Html.DisplayFor(modelItem => item.QuestionsCount)
+                          </td>
+                          <td>
+                              @Html.DisplayFor(modelItem => item.Course.Name)
+                          </td>
+                          <td>
+                              @Html.DisplayFor(modelItem => item.TestCenter.Name)
+                          </td>
+                          <td>
+                              @Html.DisplayFor(modelItem => item.ExamDate)
+                          </td>
+                          <td>
+
+                          </td>
+                      </tr>
+                  }
+              </tbody>
+          </table>
+      </div>
+  </section>
+  */
+}

@@ -1,0 +1,273 @@
+﻿@*@inject SignInManager<ApplicationUser> signInManager;*@
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@{
+    ViewData["Title"] = "Home Page";
+}
+<!--actual conten-->
+<section class="content">
+    
+    <!-- Small boxes (Stat box) -->
+    <div class="row">
+
+        <div class="col-lg-3 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-yellow">
+                <div class="inner">
+                    <h3>@ViewData["CoursesCount"]</h3>
+
+                    <p>@Localizer["Courses"]</p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-ios-book"></i>
+                </div>
+                <a href="~/Courses/Index" class="small-box-footer">@Localizer["See content"] <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-aqua">
+                <div class="inner">
+                    <h3>@ViewData["TopicsCount"]</h3>
+
+
+                    <p>@Localizer["Topics"]</p>
+
+                </div>
+                <div class="icon">
+                    <i class="ion ion-ios-bookmarks"></i>
+                </div>
+                <a href="~/Topics/Index" class="small-box-footer">@Localizer["See content"] <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-primary">
+                <div class="inner">
+                    <h3>@ViewData["QuestionsCount"]</h3>
+
+                    <p>@Localizer["Questions"]</p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-help"></i>
+                </div>
+                <a href="~/Questions/Index" class="small-box-footer">@Localizer["See content"]<i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+
+        <!-- ./col -->
+        <div class="col-lg-3 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-red">
+                <div class="inner">
+                    <h3>@ViewData["ExamsCount"]</h3>
+
+                    <p>@Localizer["Exams"]</p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-clipboard"></i>
+                </div>
+                <a href="~/Exams/Index" class="small-box-footer">@Localizer["See content"]<i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <!-- ./col -->
+    </div>
+
+    <hr style="visibility:hidden;" />
+
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-4">
+            <div class="box box-default collapsed-box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">@Localizer["Latest Courses"]</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                    <!-- /.box-tools -->
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <ul class="list-group">
+                        @{
+                            try
+                            {
+                                Dictionary<string, string> dict1 = new Dictionary<string, string>(ViewData["CCourse"] as Dictionary<string, string>);
+                                if (dict1.Count > 0)
+                                {
+                                    foreach (var course in dict1)
+                                    {
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        @course.Key.ToString()
+                                        @if (course.Value != "0")
+                                        {
+                                            <span class="badge badge-primary badge-pill">@course.Value @Localizer["Topics"]</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge badge-primary badge-pill"> @Localizer["No Topics"]</span>
+                                        }
+                                    </li>
+                                    }
+
+                                }
+                            }
+                            catch
+                            {
+
+                            }
+                         }
+                    </ul>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
+
+        <div class="col-md-4">
+
+            <div class="box box-default collapsed-box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">@Localizer["Latest Exams"]</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                    <!-- /.box-tools -->
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <ul class="list-group">
+                        @{
+                            try
+                            {
+                                Dictionary<DateTime, string> dict = new Dictionary<DateTime, string>(ViewData["EExams"] as Dictionary<DateTime, string>);
+
+                                if (dict != null)
+                                {
+                                    foreach (var exam in dict)
+                                    {
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        @exam.Key.ToString()
+                                        <span class="badge badge-primary badge-pill">@exam.Value.ToString()</span>
+                                    </li>
+                                    }
+                                    }
+                                
+                            }
+                        catch
+                        {
+                        
+                        }
+                        }
+                        
+                    </ul>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
+    </div>
+        <hr style="visibility:hidden;" />
+        <div class="row">
+
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <a href="~/Courses/Create" class="info-box" style="color: inherit;">
+
+
+                    <span class="info-box-icon bg-yellow"><i class="fa fa-plus-square-o"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text" style="visibility:hidden;">Adding Course</span>
+                        <span class="info-box-number">@Localizer["Add New Course"]</span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </a>
+                <!-- /.info-box -->
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <a href="~/Courses/Index" class="info-box" style="color: inherit;">
+                    <span class="info-box-icon bg-aqua"><i class="fa fa-plus-square-o"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text" style="visibility:hidden;">Adding Topic</span>
+                        <span class="info-box-number">@Localizer["Add New Topic"]</span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </a>
+                <!-- /.info-box -->
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <a href="~/Questions/Create" class="info-box" style="color: inherit;">
+                    <span class="info-box-icon bg-blue"><i class="fa fa-plus-square-o"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text" style="visibility:hidden;">Adding Question</span>
+                        <span class="info-box-number">@Localizer["Add New Question"]</span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </a>
+                <!-- /.info-box -->
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <a href="~/Exams/Create" class="info-box" style="color: inherit;">
+                    <span class="info-box-icon bg-red"><i class="fa fa-plus-square-o"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text" style="visibility:hidden;">Adding Exam</span>
+                        <span class="info-box-number">@Localizer["Add New Exam"]</span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </a>
+
+                <!-- /.info-box -->
+            </div>
+        </div>
+        @*<div class="row">
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <div class="box box-solid bg-green-gradient">
+                    <div class="box-header ui-sortable-handle" style="cursor: move;">
+                        <i class="fa fa-calendar"></i>
+
+                        <h3 class="box-title">@Localizer["Calendar"]</h3>
+                        <!-- tools box -->
+                        <div class="pull-right box-tools">
+                            <!-- button with a dropdown -->
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-success btn-sm dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fa fa-bars"></i>
+                                </button>
+                                <ul class="dropdown-menu pull-right" role="menu">
+                                    <li><a href="~/Exams/Create">@Localizer["Add new exam"]</a></li>
+                                    @*<li><a href="#">Clear events</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="#">View calendar</a></li>
+        </ul>
+        </div>
+        <button type="button" class="btn btn-success btn-sm" data-widget="collapse">
+            <i class="fa fa-minus"></i>
+        </button>
+        <button type="button" class="btn btn-success btn-sm" data-widget="remove">
+            <i class="fa fa-times"></i>
+        </button>
+        </div>
+        <!-- /. tools -->
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body no-padding">
+            <!--The calendar -->
+            <div id="calendar" style="width: 100%"><div class="datepicker datepicker-inline"><div class="datepicker-days" style=""><table class="table-condensed"><thead><tr><th colspan="7" class="datepicker-title" style="display: none;"></th></tr><tr><th class="prev">«</th><th colspan="5" class="datepicker-switch">February 2020</th><th class="next">»</th></tr><tr><th class="dow">Su</th><th class="dow">Mo</th><th class="dow">Tu</th><th class="dow">We</th><th class="dow">Th</th><th class="dow">Fr</th><th class="dow">Sa</th></tr></thead><tbody><tr><td class="old day" data-date="1579996800000">26</td><td class="old day" data-date="1580083200000">27</td><td class="old day" data-date="1580169600000">28</td><td class="old day" data-date="1580256000000">29</td><td class="old day" data-date="1580342400000">30</td><td class="old day" data-date="1580428800000">31</td><td class="day" data-date="1580515200000">1</td></tr><tr><td class="day" data-date="1580601600000">2</td><td class="day" data-date="1580688000000">3</td><td class="day" data-date="1580774400000">4</td><td class="day" data-date="1580860800000">5</td><td class="day" data-date="1580947200000">6</td><td class="day" data-date="1581033600000">7</td><td class="day" data-date="1581120000000">8</td></tr><tr><td class="day" data-date="1581206400000">9</td><td class="day" data-date="1581292800000">10</td><td class="day" data-date="1581379200000">11</td><td class="day" data-date="1581465600000">12</td><td class="day" data-date="1581552000000">13</td><td class="day" data-date="1581638400000">14</td><td class="day" data-date="1581724800000">15</td></tr><tr><td class="day" data-date="1581811200000">16</td><td class="day" data-date="1581897600000">17</td><td class="day" data-date="1581984000000">18</td><td class="day" data-date="1582070400000">19</td><td class="day" data-date="1582156800000">20</td><td class="day" data-date="1582243200000">21</td><td class="day" data-date="1582329600000">22</td></tr><tr><td class="day" data-date="1582416000000">23</td><td class="day" data-date="1582502400000">24</td><td class="day" data-date="1582588800000">25</td><td class="day" data-date="1582675200000">26</td><td class="day" data-date="1582761600000">27</td><td class="day" data-date="1582848000000">28</td><td class="day" data-date="1582934400000">29</td></tr><tr><td class="new day" data-date="1583020800000">1</td><td class="new day" data-date="1583107200000">2</td><td class="new day" data-date="1583193600000">3</td><td class="new day" data-date="1583280000000">4</td><td class="new day" data-date="1583366400000">5</td><td class="new day" data-date="1583452800000">6</td><td class="new day" data-date="1583539200000">7</td></tr></tbody><tfoot><tr><th colspan="7" class="today" style="display: none;">Today</th></tr><tr><th colspan="7" class="clear" style="display: none;">Clear</th></tr></tfoot></table></div><div class="datepicker-months" style="display: none;"><table class="table-condensed"><thead><tr><th colspan="7" class="datepicker-title" style="display: none;"></th></tr><tr><th class="prev">«</th><th colspan="5" class="datepicker-switch">2020</th><th class="next">»</th></tr></thead><tbody><tr><td colspan="7"><span class="month">Jan</span><span class="month focused">Feb</span><span class="month">Mar</span><span class="month">Apr</span><span class="month">May</span><span class="month">Jun</span><span class="month">Jul</span><span class="month">Aug</span><span class="month">Sep</span><span class="month">Oct</span><span class="month">Nov</span><span class="month">Dec</span></td></tr></tbody><tfoot><tr><th colspan="7" class="today" style="display: none;">Today</th></tr><tr><th colspan="7" class="clear" style="display: none;">Clear</th></tr></tfoot></table></div><div class="datepicker-years" style="display: none;"><table class="table-condensed"><thead><tr><th colspan="7" class="datepicker-title" style="display: none;"></th></tr><tr><th class="prev">«</th><th colspan="5" class="datepicker-switch">2020-2029</th><th class="next">»</th></tr></thead><tbody><tr><td colspan="7"><span class="year old">2019</span><span class="year focused">2020</span><span class="year">2021</span><span class="year">2022</span><span class="year">2023</span><span class="year">2024</span><span class="year">2025</span><span class="year">2026</span><span class="year">2027</span><span class="year">2028</span><span class="year">2029</span><span class="year new">2030</span></td></tr></tbody><tfoot><tr><th colspan="7" class="today" style="display: none;">Today</th></tr><tr><th colspan="7" class="clear" style="display: none;">Clear</th></tr></tfoot></table></div><div class="datepicker-decades" style="display: none;"><table class="table-condensed"><thead><tr><th colspan="7" class="datepicker-title" style="display: none;"></th></tr><tr><th class="prev">«</th><th colspan="5" class="datepicker-switch">2000-2090</th><th class="next">»</th></tr></thead><tbody><tr><td colspan="7"><span class="decade old">1990</span><span class="decade">2000</span><span class="decade">2010</span><span class="decade focused">2020</span><span class="decade">2030</span><span class="decade">2040</span><span class="decade">2050</span><span class="decade">2060</span><span class="decade">2070</span><span class="decade">2080</span><span class="decade">2090</span><span class="decade new">2100</span></td></tr></tbody><tfoot><tr><th colspan="7" class="today" style="display: none;">Today</th></tr><tr><th colspan="7" class="clear" style="display: none;">Clear</th></tr></tfoot></table></div><div class="datepicker-centuries" style="display: none;"><table class="table-condensed"><thead><tr><th colspan="7" class="datepicker-title" style="display: none;"></th></tr><tr><th class="prev">«</th><th colspan="5" class="datepicker-switch">2000-2900</th><th class="next">»</th></tr></thead><tbody><tr><td colspan="7"><span class="century old">1900</span><span class="century focused">2000</span><span class="century">2100</span><span class="century">2200</span><span class="century">2300</span><span class="century">2400</span><span class="century">2500</span><span class="century">2600</span><span class="century">2700</span><span class="century">2800</span><span class="century">2900</span><span class="century new">3000</span></td></tr></tbody><tfoot><tr><th colspan="7" class="today" style="display: none;">Today</th></tr><tr><th colspan="7" class="clear" style="display: none;">Clear</th></tr></tfoot></table></div></div></div>
+        </div>
+        </div>
+        </div>
+        <div class="col-lg-2"></div>
+        </div>*@
+
+
+</section>
+
+<script>
+
+</script>

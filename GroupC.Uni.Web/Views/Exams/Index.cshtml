@@ -1,0 +1,82 @@
+﻿@model IEnumerable<GroupC.Uni.Web.ViewModels.ExamViewModel>
+
+<section class="content">
+    <div class="box" style="padding: 20px">
+        <div class="box-header">
+            <h2 class="box-title">Exames</h2>
+        </div>
+
+        <p style="text-align:right">
+            <a asp-action="Create" class="btn btn-sm btn-bitbucket" style="margin-right:10px">Create New Exam</a>
+        </p>
+        <table class="table" id="ExamTable">
+            <thead>
+                <tr>
+                    @*<th>
+                        @Html.DisplayNameFor(model => model.ExamQuestions)
+                    </th>*@
+                    <th>
+                        @Html.DisplayNameFor(model => model.DurationInMinutes)
+                    </th>
+                    @*<th>
+            @Html.DisplayNameFor(model => model.IsRandom)
+        </th>*@
+                    <th>
+                        @Html.DisplayNameFor(model => model.QuestionsCount)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.CourseViewModel)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TestCenterViewModel)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ExamDateTime)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr>
+                    @*<td>
+                        @Html.DisplayNameFor(model => model.ExamQuestions)
+                    </td>*@
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DurationInMinutes)
+                    </td>
+                    @*<td>
+                        @Html.DisplayFor(modelItem => item.IsRandom)
+                    </td>*@
+                    <td>
+                        @Html.DisplayFor(modelItem => item.QuestionsCount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CourseViewModel.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TestCenterViewModel.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ExamDateTime)
+                    </td>
+                    <td>
+                        <a class="btn btn-sm btn-info" asp-action="Edit" asp-route-id="@item.Id">Update</a>
+                        <a class="btn btn-sm btn-primary" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                        <a class="btn btn-sm btn-danger delete"
+                           data-id="@item.Id"
+                           data-controller="Exams"
+                           data-action="Delete"
+                           data-body-message="Are you sure you want to delete this Exam?">
+                            @*<span class="glyphicon glyphicon-trash" style="color:#ff0000"></span>*@
+                            delete
+                        </a>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</section>

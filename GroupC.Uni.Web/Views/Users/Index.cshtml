@@ -1,0 +1,116 @@
+﻿@model IEnumerable<ApplicationUser>
+<style>
+    #ImageDisplay {
+        width: 50px;
+    }
+</style>
+<!--actual conten-->
+
+<section class="content">
+    @*<br />*@
+        <div class=" row">
+            @*<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">*@
+            <div class="col-md-4">
+                <div class="info-box">
+                    <!-- Apply any bg-* class to to the icon to color it -->
+                    <span class="info-box-icon bg-red"><i class="fa fa-user"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Admins</span>
+                        <span class="info-box-more"><a href="~/Admins/Create" style="color:dimgray">click to add new Admin</a></span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="info-box">
+                    <!-- Apply any bg-* class to to the icon to color it -->
+                    <span class="info-box-icon bg-aqua"><i class="fa fa-book"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Students</span>
+                        <span class="info-box-more"><a href="~/Students/Create" style="color:dimgray">click to add new Student</a></span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="info-box">
+                    <!-- Apply any bg-* class to to the icon to color it -->
+                    <span class="info-box-icon bg-yellow"><i class="fa fa-bank"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Test Centers</span>
+                        <span class="info-box-more"><a href="~/TestCenters/Create" style="color:dimgray">click to add new Test Center</a></span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+            </div>
+        </div>
+        <!-- /.info-box -->
+    @*</section>
+    <br />*@
+    <div class="box" style="padding: 20px">
+
+        <div class="box-header">
+            <h2 class="box-title">Users</h2>
+        </div>
+
+        @*<p style="text-align:right">
+            <a asp-action="AddUsers" class="btn btn-sm btn-bitbucket" style="margin-right:10px">Add New User</a>
+        </p>*@
+        <table class="table" id="UsersTable" style="margin:20px">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Email)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PhoneNumber)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.UserType)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ImageURL)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PhoneNumber)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserType)
+                        </td>
+                        <td align="center">
+                            <img id="ImageDisplay" src="@item.ImageURL" />
+                        </td>
+                        <td>
+                            <a class="btn btn-sm btn-info" asp-action="Edit" asp-route-id="@item.Id">Update</a>
+                            @*<a class="btn btn-sm btn-primary" asp-action="Details" asp-route-id="@item.Id">Details</a>*@
+                            <a class="btn btn-sm btn-danger delete"
+                               data-id="@item.Id"
+                               data-controller="Users"
+                               data-action="Delete"
+                               data-body-message="Are you sure you want to remove this User, Please Notice you can't delete an Admin?">
+                                @*<span class="glyphicon glyphicon-trash" style="color:#ff0000"></span>*@
+                                delete
+                            </a>
+                            </td>
+</tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</section>

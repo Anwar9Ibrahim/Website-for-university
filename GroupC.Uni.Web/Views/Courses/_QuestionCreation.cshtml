@@ -1,0 +1,47 @@
+﻿@model GroupC.Uni.Web.ViewModels.QuestionViewModel
+
+@{
+    ViewData["Title"] = "_QuestionCreate";
+}
+
+<div class="panel panel-default">
+        <div class="panel-heading">
+            <h2>Create a Question</h2>
+        </div>
+        <form asp-controller="CourseController" asp-action="QuestionCreate" id="QuestionForm">
+            <div class="panel-body">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Text" class="control-label"></label>
+                    <input asp-for="Text" class="form-control" />
+                    <span asp-validation-for="Text" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Mark" class="control-label"></label>
+                    <input asp-for="Mark" class="form-control" />
+                    <span asp-validation-for="Mark" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label>
+                            <input asp-for="IsHtml" /> @Html.DisplayNameFor(model => model.IsHtml)
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="TopicId" class="control-label"></label>
+                    <select asp-for="TopicId" class="form-control" asp-items="@ViewBag.TopicId"></select>
+                </div>
+            </div>
+                <div class="panel-footer">
+                    <div class="form-group">
+                        <input type="submit" value="Create" id="CreateQuestion" class="btn btn-default" />
+                        <input type="button" name="Add Choice" id="AddChoice" value="Add Choice" class="btn btn-default" onclick="location.href='@Url.Action("Create", "Choices")'"
+                               style="visibility:hidden"/>
+                        <div class="clearfix"></div>
+                    </div>
+                    </div>
+
+        </form>
+    </div>
+

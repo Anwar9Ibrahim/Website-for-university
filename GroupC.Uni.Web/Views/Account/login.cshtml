@@ -1,0 +1,102 @@
+﻿@{
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+  
+@model GroupC.Uni.Web.ViewModels.LoginViewModel
+
+@{
+    ViewData["Title"] = "Log in";
+}
+
+<div class="container account-login-container">
+    @*<h2>@ViewData["Title"]</h2>*@
+    <div class="login-box">
+        <div class="login-logo">
+            <a href="~/Views/Home/Index.cshtml"><b>GroupC</b>Admin</a>
+        </div>
+        <!-- /.login-logo -->
+        <div class="login-box-body">
+            <p class="login-box-msg">Please enter your username & password to sign in</p>
+            @*<div class="row">*@
+            @*<div class="col-md-4">*@
+            <form asp-action="Admin">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Email" class="control-label"></label>
+                    <input asp-for="Email" class="form-control" placeholder="Email">
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Password" class="control-label"></label>
+                    <input asp-for="Password" class="form-control" placeholder="Password" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label asp-for="RememberMe">
+                            <input asp-for="RememberMe" />
+                            @Html.DisplayNameFor(m => m.RememberMe)
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Login" class="btn btn-primary btn-block btn-flat" @*style="background-color:dimgray"*@ />
+                </div>
+                <div>
+                    <a asp-action="ForgotPassword">Forgot Password</a>
+                </div>
+                @*<button asp-action="Register">Register</button>*@
+            </form>
+        </div>
+
+    </div>
+    @*<div class="row">
+                <div class="col-md-12">
+                    <section>
+                        <form method="post">
+                            <hr />
+                            <div asp-validation-summary="All" class="text-danger"></div>
+                            <div class="form-group">
+                                <label asp-for="Email"></label>
+                                <input asp-for="Email" class="form-control" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Password"></label>
+                                <input asp-for="Password" class="form-control" />
+                                <span asp-validation-for="Password" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <label asp-for="RememberMe">
+                                        <input asp-for="RememberMe" />
+                                        @Html.DisplayNameFor(m => m.RememberMe)
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-default">Log in</button>
+                            </div>
+                            <div class="form-group">
+                                @*<p>
+                                    <a asp-page="./ForgotPassword">Forgot your password?</a>
+                                </p>
+                                <p>
+                                    <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
+                                </p>
+                            </div>
+                            <p>
+                                Note that for demo purposes you don't need to register and can login with these credentials:
+                            </p>
+                            <p>
+                                User:     <b>demouser@microsoft.com</b>
+                            </p>
+                            <p>
+                                Password: <b>Pass@word1</b>
+                            </p>
+                        </form>
+                    </section>
+                </div>
+            </div>
+        </div>*@
+</div>

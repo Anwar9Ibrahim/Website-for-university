@@ -1,0 +1,131 @@
+﻿@model GroupC.Uni.Web.ViewModels.CourseModelView
+
+@{
+     
+        int i = 0;
+    
+}
+<style>
+    a div {
+        display: none;
+    }
+
+    a:hover div {
+        display: block;
+    }
+
+    #imageUploded {
+        margin-right: 450px;
+        margin-top: 10px;
+        width: 150px;
+        height: 200px;
+    }
+</style>
+
+<section class="content">
+    <div class="row">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-6">
+            <div class="box box-default Absolute-Center is-Responsive">
+                <div class="box-header with-border" style="text-align:center;">
+                    <h2>Editing @Html.DisplayFor(model => model.Name)</h2>
+                </div>
+                <form asp-controller="CourseController" asp-action="Edit" enctype="multipart/form-data">
+                    <div class="box-body" id="panelBody">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="Code" class="control-label"></label>
+                            <input asp-for="Code" class="form-control" />
+                            <span asp-validation-for="Code" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Name" class="control-label"></label>
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label" style="margin-top:8px">Upload an image</label>
+                            <div class="col-sm-8">
+                                <input asp-for="ImageURL" class="form-control  custom-file-input hidden">
+                                <div class="custom-file ">
+                                    <a href="#">
+                                        <input asp-for="Image" class="form-control  custom-file-input" onchange="readURL(this);">
+                                        <br />
+                                        <div><img id="imageUploded" src="@Model.ImageURL" alt="" /></div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        @foreach (var item in Model.Topics)
+                        {
+
+                            string topicName = item.TopicName;
+
+                            <div class="form-group">
+                                <label asp-for="Topics" class="control-label">Topic Name</label>
+                                <input class="form-control valid" type="text" data-val="true" data-val-required="The Topic Name field is required." aria-describedby="Name-error" aria-invalid="false" name="Topics[@i].TopicName" value="@topicName">
+                                <span asp-validation-for="Topics" class="text-danger field-validation-valid" data-valmsg-for="Topics[@i].TopicName" data-valmsg-replace="true"></span>
+                            </div>
+                            i++;
+                        }
+                        <input type="hidden" asp-for="Id" />
+                    </div>
+                    <div class="box-footer">
+                        <div class="form-group">
+
+                            <input class="btn btn-github" type="submit" value="Save" id="CreateCourse" />
+                            <input class="btn btn-light" type="button" value="Add Topics" id="AddTopic" />
+                            <div class="pull-right">
+                                <input type="button" value="Cancel" class="btn btn-danger" onclick="location.href='@Url.Action("Index","Courses")';" />
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+    <div>
+
+    </div>
+</section>
+
+<script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#imageUploded')
+                    .attr('src', e.target.result)
+                    .width(150)
+                    .height(200);
+
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+
+       
+       
+    }
+
+    $("#Image").on('change', function () {
+
+        var fullPath = $("#Image").val();
+        var filename = fullPath.replace(/^.*\\/, "");
+        $("#ImageURL").attr('value', filename);
+    });
+
+  
+    $(document).ready(function () {        
+                var j = @i;
+                $("#AddTopic").click(function () {
+                    var html = '';
+                    html += '<div class="form-group"><label class="control-label" for="Topics">Topic Name</label><input  class="form-control valid"   type="text" data-val="true" data-val-required="The Topic Name field is required." aria-describedby="Name-error" aria-invalid="false"  name="Topics[' + j + '].TopicName" value ><span asp-validation-for="Topics" class="text-danger field-validation-valid" data-valmsg-for="Topics[' + j + '].TopicName" data-valmsg-replace="true"></span> </div >';
+                    $('#panelBody').append(html);
+                    j++;                     
+        });
+    });
+</script>

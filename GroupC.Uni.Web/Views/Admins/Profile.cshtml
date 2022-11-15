@@ -1,0 +1,202 @@
+﻿@model GroupC.Uni.Web.ViewModels.ProfileViewModel
+
+
+<style>
+    a div {
+        display: none;
+    }
+
+    a:hover div {
+        display: block;
+    }
+
+    #imageUploded {
+        margin-left: 50px;
+        margin-top: 10px;
+        width: 150px;
+        height: 200px;
+    }
+
+    #ImageDisplay {
+        width: 200px;
+    }
+</style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+
+<link href="~/css/CheckBox.css" rel="stylesheet" />
+
+
+
+
+<div class="content">
+    <div class="row">
+        <div class="col-md-4 ">
+            <div class="box box-default Absolute-Center is-Responsive">
+                <div class="box-body box-profile">
+                    <img class="profile-user-img img-responsive img-circle" id="ImageDisplay" src="@Model.ImageURL" alt="User profile picture">
+
+                    <h3 class="profile-username text-center">
+                        @Model.Name
+                    </h3>
+                    <p class="text-muted text-center">@Model.UserType</p>
+                    <ul class="list-group list-group-unbordered">
+                        <li class="list-group-item">
+                            <b>Email</b> <a class="pull-right">@Model.Email</a>
+                        </li>
+                        <li class="list-group-item">
+                            <b>Phone</b> <a class="pull-right">@Model.Phone</a>
+                        </li>
+                    </ul>
+                    @* <h4 style="background-color:#d2d6de; border:solid;" class="text-center">change values in the adjacent form to <strong>Edit</strong> your info</h4>*@
+                    @*<a href="#" class="btn btn-primary btn-block"><b>Edit My profile</b></a>*@
+
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!--/.box-->
+        </div>
+        <div class="col-md-8">
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+
+                    @* <li class=""><a href="#timeline" data-toggle="tab" aria-expanded="false">Timeline</a></li>  aria-expanded="true"
+                        aria-expanded="false" *@
+                    <li class="active"><a href="#edit" data-toggle="tab">Settings</a></li>
+                    <li class=""><a href="#password" data-toggle="tab">Change Password</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="edit">
+                        <form class="form-horizontal" asp-action="Edit" asp-controller="Admins" id="UserForm" method="post" enctype="multipart/form-data">
+                            <div class="box-body" id="panelBody">
+
+                                <div class="form-group">
+                                    <label asp-for="Name" class="col-sm-2 control-label"></label>
+                                    <div class="col-sm-10">
+                                        <input asp-for="Name" class="form-control" />
+                                        <span asp-validation-for="Name" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Phone" class="col-sm-2 control-label"></label>
+                                    <div class="col-sm-10">
+                                        <input asp-for="Phone" class="form-control" />
+                                        <span asp-validation-for="Phone" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label" style="margin-top:8px">Upload an image</label>
+                                    <div class="col-sm-8">
+                                        <input asp-for="ImageURL" class="form-control  custom-file-input hidden">
+                                        <div class="custom-file ">
+                                            <a href="#">
+                                                <input asp-for="Image" class="form-control  custom-file-input" onchange="readURL(this);">
+                                                <br />
+                                                <div><img id="imageUploded" src="@Model.ImageURL" alt="" /></div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box-footer">
+                                <div class="form-group">
+                                    <div class="col-sm-offset-1 col-sm-10 ">
+                                        <input type="submit" value="Save" id="UpdateStudent" class="btn btn-github" />
+
+                                        <div class="pull-right col-sm-pull-1">
+                                            <input type="button" value="Cancel" class="btn btn-danger" onclick="location.href='@Url.Action("Profile","Admins")';" />
+                                        </div>
+
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                    <!-- /.tab-pane -->
+                    <!-- /.tab-content -->
+                    <div class="tab-pane" id="password">
+                        <form class="form-horizontal" asp-action="ChangePassword" asp-controller="Admins" id="UserForm" method="post" enctype="multipart/form-data">
+                            <div class="box-body" id="panelBody">
+                                <input asp-for="Name" class=" hidden" value="@Model.Name" />
+                                <input asp-for="Email" class=" hidden" value="@Model.Email" />
+                                <input asp-for="Phone" class=" hidden" value="@Model.Phone" />
+                                <input asp-for="ImageURL" class=" hidden" value="@Model.ImageURL" />
+
+                                <div class="form-group">
+                                    <label asp-for="changePasswordViewModel.CurrentPassword" class="col-sm-3 control-label"></label>
+                                    <div class="col-sm-9">
+                                        <input asp-for="changePasswordViewModel.CurrentPassword" class="form-control" />
+                                        <span asp-validation-for="changePasswordViewModel.CurrentPassword" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="changePasswordViewModel.NewPassword" class="col-sm-3 control-label"></label>
+                                    <div class="col-sm-9">
+                                        <input asp-for="changePasswordViewModel.NewPassword" class="form-control" />
+                                        <span asp-validation-for="changePasswordViewModel.NewPassword" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="changePasswordViewModel.ConfirmPassword" class="col-sm-3 control-label"></label>
+                                    <div class="col-sm-9">
+                                        <input asp-for="changePasswordViewModel.ConfirmPassword" class="form-control" />
+                                        <span asp-validation-for="changePasswordViewModel.ConfirmPassword" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box-footer">
+                                <div class="form-group">
+                                    <div class="col-sm-offset-1 col-sm-10 ">
+                                        <input type="submit" value="Save" id="UpdateStudent" class="btn btn-github" />
+
+                                        <div class="pull-right col-sm-pull-1">
+                                            <input type="button" value="Cancel" class="btn btn-danger" onclick="location.href='@Url.Action("Profile","Admins")';" />
+                                        </div>
+
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- /.nav-tabs-custom -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+</script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#imageUploded')
+                    .attr('src', e.target.result)
+                    .width(150)
+                    .height(200);
+
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+
+
+
+    }
+
+    $("#Image").on('change', function () {
+
+        var fullPath = $("#Image").val();
+        var filename = fullPath.replace(/^.*\\/, "");
+        $("#ImageURL").attr('value', filename);
+    });
+
+</script>

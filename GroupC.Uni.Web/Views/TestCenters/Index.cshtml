@@ -1,0 +1,86 @@
+﻿@model IEnumerable<GroupC.Uni.Web.ViewModels.CreateUserViewModel>
+<style>
+    #ImageDisplay {
+        width: 50px;
+    }
+</style>
+
+<section class="content">
+    <div class="box" style="padding: 20px">
+
+        <div class="box-header">
+            <h2 class="box-title">Test Centers</h2>
+        </div>
+        <p>
+            <a asp-action="Create" class="btn btn-sm btn-bitbucket pull-right" style="margin-right:10px; margin-bottom:20px">Create New Test Center</a>
+            <br />
+        </p>
+
+        <table class="table" id="TestCenterTable">
+            <thead>
+                <tr>
+                    @*<th>
+                            @Html.DisplayNameFor(model => model.Id)
+                        </th>*@
+                    <th>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Email)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Phone)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.UserType)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Image)
+                    </th>
+                    <th>
+                        Options
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        @*<td>
+                                @Html.DisplayFor(modelItem => item.Id)
+                            </td>*@
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Phone)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserType)
+                        </td>
+                        <td align="center">
+                            <img id="ImageDisplay" src="@item.ImageURL" />
+                        </td>
+
+                        <td>
+                            <a class="btn btn-sm btn-info" asp-action="Edit" asp-route-id="@item.Id">Update</a>
+                              @*  <a class="btn btn-sm btn-primary" asp-action="Details" asp-route-id="@item.Id">Details</a>*@
+                            <a class="btn btn-sm btn-danger delete"
+                               data-id="@item.Id"
+                               data-controller="TestCenters"
+                               data-action="Delete"
+                               data-body-message="Are you sure you want to remove this Test Center?">
+                                delete
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</section>
+

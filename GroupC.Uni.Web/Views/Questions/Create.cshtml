@@ -1,0 +1,158 @@
+﻿@model GroupC.Uni.Web.ViewModels.QuestionViewModel
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+
+<link href="~/css/CheckBox.css" rel="stylesheet" />
+<section class="content">
+    <div class="row">
+        <div class="col-sm-3"> </div>
+        <div class="col-sm-6">
+            <div class="box box-default Absolute-Center is-Responsive">
+                <div class="box-header with-border" style="text-align:center;">
+                    <h2>Create Questions</h2>
+                </div>
+                <form asp-action="Create" id="QuestionForm">
+                    <div class="box-body" id="panelBody">
+                        <div class="form-group">
+                            <div class="checkbox ion-android-checkbox-outline">
+                                <input data-val="true" id="IsHtml" name="IsHtml" type="checkbox" onclick="EnableDisableTextBox(this)" value="true" />
+                                <label for="IsHtml">
+                                    HTML Question ?
+                                </label>
+                            </div>
+                        </div>
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="Text" class="control-label">Question</label>
+                            <input asp-for="Text" class="form-control" id="textbox" />
+                            <br>
+                            <h1> </h1>
+                            <textarea asp-for="Text" class="form-control" id="txtHtml" disabled></textarea>
+                            <span asp-validation-for="Text" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Mark" class="control-label"></label>
+                            <input asp-for="Mark" class="form-control" />
+                            <span asp-validation-for="Mark" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="TopicId" class="control-label"> Topic</label>
+
+                            <select asp-for="TopicId" class="form-control js-example-basic-single" asp-items="ViewBag.TopicId"></select>
+                            @*<select class="form-control js-example-basic-single" name="Topic" multiple="multiple" asp-items="ViewBag.TopicId"></select>*@
+                        </div>
+                        
+
+                        <div class="form-group row">
+                            <div class="col-sm-7">
+                                <label class="control-label">Number of Choices :</label>
+                                <br />
+                                <span id="numberOfChoicesErrorMessage" class="text-danger field-validation-valid"></span>
+                            </div>
+                            <div class="col-sm-3">
+                                <input class="form-control" id="NumberOfChoices" type="text" onfocusout="AddingChoices();">
+
+
+                            </div>
+                        </div>
+
+
+                        <div id="Cho">
+
+                        </div>
+
+                    </div>
+                    <div class="box-footer">
+                        <div class="form-group">
+                            <input type="submit" value="Create" id="CreateCourse" class="btn btn-github" />
+                            <div class="pull-right">
+                                <input type="button" value="Cancel" class="btn btn-danger" onclick="location.href='@Url.Action("Index","Questions")';" />
+                            </div>
+                            <div class="clearfix"></div>
+
+                        </div>
+                    </div>
+
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+    @*$(document).ready(function () {
+        document.getElementById("IsHtml").checked = true;
+        document.getElementById("textbox").disabled = true;
+    });*@
+<script>
+    function AddingChoices() {
+        var x = document.getElementById("NumberOfChoices").value;
+        var myNode = document.getElementById("Cho");
+        $(myNode).empty();
+        if (x < 6 && x >= 1) {
+            $("#numberOfChoicesErrorMessage").text("");
+            for (var i = 0; i < x; i++) {
+                var html = '';
+                html += '<div class="form-group row"><div class="col-sm-7" ><label class="control-label" for="Choices.Text">Choice</label>';
+                html += '<input class="form-control valid custom-control-input" type="text" data-val="true" data-val-required="The Choice Name field is required." aria-describedby="Name-error" aria-invalid="false" name="Choices[' + i + '].Text" value>';
+                html += '<span asp-validation-for="Choices.Text" class="text-danger field-validation-valid" data-valmsg-for="Choices[' + i + '].Text" data-valmsg-replace="true"></span></div>';
+                html += '<div class="col-sm-4" style="margin-top:22px">';
+                html += '<div class="checkbox checkbox-primary checkbox-circle">';
+                html += '<input data-val="true" id="checkbox' + i + '" name="Choices[' + i + '].Type" type="checkbox" value="true" onclick=validate("checkbox' + i + '")>';
+                html += '<label for="checkbox' + i + '">  Correct </label> </div>';
+                $('#Cho').append(html);
+
+            }
+
+        }
+        else {
+            $("#numberOfChoicesErrorMessage").text("Choice Number should be between 1 and 5");
+            document.getElementById("NumberOfChoices").focus();
+            $(myNode).empty();
+        }
+    };
+
+
+    function validate(id) {
+        
+        var flag = false;
+        var element = document.getElementById(id);
+        var searchEles = document.getElementById("Cho").children;
+        var cbstring = "checkbox";
+
+        for (var i = 0; i < searchEles.length; i++) {
+            var cbid = cbstring+i; 
+            var cb = document.getElementById(cbid);
+            if (cb.checked) {
+                if (cbid == id) { continue; alert("equals"); }
+                else {
+                    flag = true;
+                    break;
+                }
+
+            }
+        }
+        if (flag == true) {
+            element.checked = false;
+        }
+
+    };
+        
+    
+</script>
+<script>tinymce.init({ selector: 'textarea' });</script>
+<script type="text/javascript">
+    function EnableDisableTextBox(IsHtml) {
+        var txtBox = document.getElementById("textbox");
+        var txtHtml = document.getElementById("txtHtml");
+        txtBox.disabled = IsHtml.checked ? true : false;
+        txtHtml.disabled = IsHtml.checked ? false : true;
+        if (!txtBox.disabled) {
+            document.getElementById("textbox").focus();
+        } else {
+            document.getElementById("txtHtml").focus();
+        }
+    }
+</script>

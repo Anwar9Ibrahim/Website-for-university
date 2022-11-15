@@ -1,0 +1,101 @@
+﻿@model GroupC.Uni.Web.ViewModels.CreateUserViewModel
+<style>
+    a div {
+        display: none;
+    }
+
+    a:hover div {
+        display: block;
+    }
+
+    #imageUploded {
+        margin-left: 50px;
+        margin-top: 10px;
+        width: 150px;
+        height: 200px;
+    }
+</style>
+
+<section class="content">
+    <div class="row">
+
+        <div class="col-sm-3"> </div>
+        <div class="col-sm-6">
+            <div class="box box-default Absolute-Center is-Responsive">
+                <div class="box-header with-border" style="text-align:center;">
+                    <h2>Add Test Center</h2>
+                </div>
+                <form asp-action="CreateTestCenter" asp-controller="TestCenters" method="post" enctype="multipart/form-data">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label asp-for="Email">Email address</label>
+                            <input asp-for="Email" class="form-control" placeholder="Enter email">
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        @*<div class="form-group">
+                                <label asp-for="UserName">User Name</label>
+                                <input asp-for="UserName" class="form-control" placeholder="Enter UserName">
+                                <span asp-validation-for="UserName" class="text-danger"></span>
+                            </div>*@
+                        <div class="form-group">
+                            <label asp-for="Name">Name</label>
+                            <input asp-for="Name" class="form-control" placeholder="Enter Name">
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Phone">Phone Number</label>
+                            <input asp-for="Phone" class="form-control" placeholder="Enter Phone Number">
+                            <span asp-validation-for="Phone" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Password" class="control-label"></label>
+                            <input asp-for="Password" class="form-control" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label" style="margin-top:8px">Upload an image</label>
+                            <div class="col-sm-8">
+
+                                <div class="custom-file ">
+                                    <a href="#">
+                                        <input asp-for="Image" class="form-control custom-file-input" onchange="readURL(this);">
+                                        <div><img id="imageUploded" src="" alt="" /></div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="box-footer">
+                        <div class="form-group">
+                            <input type="submit" value="Add Test Center" class="btn btn-github" />
+                            <div class="pull-right">
+                                <input type="button" value="Cancel" class="btn btn-danger" onclick="location.href='@Url.Action("Index","TestCenters")';" />
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+</section>
+<script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#imageUploded')
+                    .attr('src', e.target.result)
+                    .width(150)
+                    .height(200);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $(document).ready(function () { });
+</script>

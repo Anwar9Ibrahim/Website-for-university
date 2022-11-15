@@ -1,0 +1,113 @@
+﻿@model GroupC.Uni.Web.ViewModels.CreateUserViewModel
+    <style>
+        a div {
+            display: none;
+        }
+
+        a:hover div {
+            display: block;
+        }
+
+        #imageUploded {
+            margin-left: 50px;
+            margin-top: 10px;
+            width: 150px;
+            height: 200px;
+        }
+    </style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+
+<link href="~/css/CheckBox.css" rel="stylesheet" />
+<section class="content">
+    <div class="row">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-6">
+            <div class="box box-default Absolute-Center is-Responsive">
+                <div class="box-header with-border" style="text-align:center;">
+                    <h2>Update User</h2>
+                </div>
+                <form asp-action="Edit" asp-controller="TestCenters"  id="UserForm" method="post" enctype="multipart/form-data">
+                    <div class="box-body" id="panelBody">
+                        <div class="form-group">
+                            <label asp-for="Name" class="control-label"></label>
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        @*<div class="form-group">
+                            <label asp-for="Year" class="control-label"></label>
+                            <input asp-for="Year" class="form-control" />
+                            <span asp-validation-for="Year" class="text-danger"></span>
+                        </div>*@
+                        @*<div class="form-group">
+                            <label asp-for="UserType" class="control-label"></label>
+                            <input asp-for="UserType" class="form-control" />
+                            <span asp-validation-for="UserType" class="text-danger"></span>
+                        </div>*@
+                        <div class="form-group">
+                            <label asp-for="Phone" class="control-label"></label>
+                            <input asp-for="Phone" class="form-control" />
+                            <span asp-validation-for="Phone" class="text-danger"></span>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label" style="margin-top:8px">Upload an image</label>
+                            <div class="col-sm-8">
+                                <input asp-for="ImageURL" class="form-control  custom-file-input hidden">
+                                <div class="custom-file ">
+                                    <a href="#">
+                                        <input asp-for="Image" class="form-control  custom-file-input" onchange="readURL(this);">
+                                        <br />
+                                        <div><img id="imageUploded" src="@Model.ImageURL" alt="" /></div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <div class="form-group">
+                            <input type="submit" value="Save" id="UpdateStudent" class="btn btn-github" />
+                            <div class="pull-right">
+                                <input type="button" value="Cancel" class="btn btn-danger" onclick="location.href='@Url.Action("Index","TestCenters")';" />
+                            </div>
+
+                            <div class="clearfix"></div>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+
+<script>
+       function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#imageUploded')
+                    .attr('src', e.target.result)
+                    .width(150)
+                    .height(200);
+
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+
+       
+       
+    }
+
+    $("#Image").on('change', function () {
+
+        var fullPath = $("#Image").val();
+        var filename = fullPath.replace(/^.*\\/, "");
+        $("#ImageURL").attr('value', filename);
+    });
+
+</script>

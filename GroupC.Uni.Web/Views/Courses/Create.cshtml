@@ -1,0 +1,123 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.AspNetCore.Localization
+@model GroupC.Uni.Web.ViewModels.CourseModelView
+@{
+    bool isRightToLeft = false;
+    var ReqCulture = Context.Features.Get<IRequestCultureFeature>();
+    isRightToLeft = ReqCulture.RequestCulture.Culture.TextInfo.IsRightToLeft;
+}
+
+@inject IViewLocalizer Localizer
+<style>
+    a div {
+        display: none;
+    }
+
+    a:hover div {
+        display: block;
+    }
+
+    #imageUploded {
+        margin-top: 30px;
+    }
+    .inputfile {
+        /* visibility: hidden etc. wont work */
+        width: 0.1px;
+        height: 0.1px;
+        opacity: 0;
+        overflow: hidden;
+        position: absolute;
+        z-index: -1;
+    }
+
+        .inputfile:focus + label {
+            /* keyboard navigation */
+            outline: 1px dotted #000;
+            outline: -webkit-focus-ring-color auto 5px;
+        }
+
+        .inputfile + label * {
+            pointer-events: none;
+        }
+</style>
+
+<section class="content">
+    <div class="row">
+
+        <div class="col-sm-3"> </div>
+        <div class="col-sm-6">
+            <div class="box box-default Absolute-Center is-Responsive">
+                <div class="box-header with-border" style="text-align:center;">
+                    <h2>@Localizer["Course Creation"]</h2>
+                </div>
+                <form asp-controller="CourseController" asp-action="CourseCreate" enctype="multipart/form-data">
+                    <div class="box-body" id="panelBody">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="Code" class="control-label"></label>
+                            <input asp-for="Code" class="form-control" id="courseId" />
+                            <span asp-validation-for="Code" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Name" class="control-label"></label>
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label @if (isRightToLeft) { <text> pull-right </text>}" style="margin-top:8px">@Localizer["Upload an image"]</label>
+                            <div class="col-sm-8">
+
+                                <div class="custom-file ">
+                                    <a href="#">
+                                        <input type="file" name="Image" id="Image" class="inputfile" onchange="readURL(this);">
+                                        <label for="Image" class="btn btn-default no-border">@Localizer["Choose a file"]</label>                                        
+                                        <div class="center"><img id="imageUploded" src="" alt="" /></div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <div class="form-group">
+                            <input class="btn btn-github" type="submit" value='@Localizer["Create"]' id="CreateCourse" />
+                            <input class="btn btn-light" type="button" value='@Localizer["Add Topics"]' id="AddTopic" />
+                            <div class="@if (isRightToLeft) { <text> pull-left </text>} else {<text> pull-right </text> }">
+                                <input type="button" value='@Localizer["Cancel"]' class="btn btn-danger" onclick="location.href='@Url.Action("Index","Courses")';" />
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+</section>
+<script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#imageUploded')
+                    .attr('src', e.target.result)
+                    .width(150)
+                    .height(200);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $(document).ready(function () {
+        var i = 0;
+        $("#AddTopic").click(function () {
+            var html = '';
+            html += '<div class="form-group"><label class="control-label" for="Topics"> @Localizer["Topic Name"]</label><input  class="form-control valid"   type="text" data-val="true" data-val-required="The Topic Name field is required." aria-describedby="Name-error" aria-invalid="false"  name="Topics[' + i + '].TopicName" value ><span asp-validation-for="Topics" class="text-danger field-validation-valid" data-valmsg-for="Topics[' + i + '].TopicName" data-valmsg-replace="true"></span> </div >';
+           @* html += '<div class="form-group"><label class="control-label" for="Topics"> @Localizer["Topic Name"] </label><input  class="form-control"   type="text" data-val="true" data-val-required= @Localizer["The Topic Name field is required."]  name="Topics[' + i + '].TopicName" value ><span class="text-danger field-validation-valid" data-valmsg-for="Topics[' + i + '].TopicName" data-valmsg-replace="true"></span> </div >';*@
+            $('#panelBody').append(html);
+            i++;
+
+        });
+    });
+</script>
